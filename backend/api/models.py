@@ -25,3 +25,6 @@ class Post(models.Model):
             self.slug = unique_slug
         
         super().save(*args, **kwargs)
+
+
+  
