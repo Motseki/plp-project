@@ -1,3 +1,6 @@
+# Status of the Project
+The project is not finished. It is still the work in progress. I am working towards finishing it by 31st December 2024.
+
 # Youth Entrepreneurship Hub
 An online network for founders and innovators to connect, make introductions, seek funding and share advice.
 
