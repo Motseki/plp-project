@@ -1,0 +1,248 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to the E-Hub</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* General Styling */
+        body {
+            background-color: #1a202c; /* Dark background */
+            color: #f5f5f5; /* Light text for contrast */
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        /* Navbar Styling */
+        .nav-bar {
+            background-color: #2d3748; /* Dark gray background */
+            border-bottom: 1px solid #4a5568; /* Lighter border */
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 10;
+            position: relative;
+        }
+
+        .nav-bar a {
+            color: #f5f5f5; /* Light color for text */
+            margin: 0 1rem;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .nav-bar a:hover {
+            color: #63b3ed; /* Light blue for hover */
+        }
+
+        .logo img {
+            height: 50px;
+        }
+
+        .login {
+            border: 1px solid #63b3ed; /* Blue border */
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 14px;
+            color: #63b3ed; /* Blue text */
+            transition: all 0.3s ease;
+        }
+
+        .login:hover {
+            background-color: #63b3ed;
+            color: white;
+        }
+
+        /* Hero Section Styling */
+        .hero-section {
+            text-align: center;
+            padding: 5rem 2rem;
+            color: #fff;
+            z-index: 10;
+            position: relative;
+        }
+
+        .hero-section h1 {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-section p {
+            font-size: 1.2rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .btn-primary {
+            background-color: #3182ce; /* Darker blue */
+            border: none;
+            border-radius: 25px;
+            padding: 0.75rem 2rem;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: #2b6cb0; /* Slightly darker on hover */
+        }
+
+        .btn-outline-dark {
+            border: 2px solid #fff;
+            color: #fff;
+            border-radius: 25px;
+            padding: 0.75rem 2rem;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .btn-outline-dark:hover {
+            background-color: #fff;
+            color: #333;
+        }
+
+        /* Rain Animation Styling */
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .rain {
+            position: absolute;
+            width: 2px;
+            height: 20px;
+            background-color: rgba(255, 255, 255, 0.7); /* White color for raindrops */
+            animation: rain-fall 1s linear infinite;
+            opacity: 0.6;
+        }
+
+        /* Create multiple raindrops */
+        .rain:nth-child(1) {
+            left: 10%;
+            animation-duration: 1.2s;
+            animation-delay: 0s;
+        }
+        .rain:nth-child(2) {
+            left: 20%;
+            animation-duration: 1.5s;
+            animation-delay: 0.3s;
+        }
+        .rain:nth-child(3) {
+            left: 30%;
+            animation-duration: 1.8s;
+            animation-delay: 0.5s;
+        }
+        .rain:nth-child(4) {
+            left: 40%;
+            animation-duration: 2s;
+            animation-delay: 0.8s;
+        }
+        .rain:nth-child(5) {
+            left: 50%;
+            animation-duration: 1.6s;
+            animation-delay: 1s;
+        }
+        .rain:nth-child(6) {
+            left: 60%;
+            animation-duration: 2.2s;
+            animation-delay: 0.7s;
+        }
+        .rain:nth-child(7) {
+            left: 70%;
+            animation-duration: 1.4s;
+            animation-delay: 1.5s;
+        }
+        .rain:nth-child(8) {
+            left: 80%;
+            animation-duration: 1.9s;
+            animation-delay: 1.2s;
+        }
+        .rain:nth-child(9) {
+            left: 90%;
+            animation-duration: 2.3s;
+            animation-delay: 0.9s;
+        }
+
+        /* Keyframes for falling rain effect */
+        @keyframes rain-fall {
+            0% {
+                top: -20px;
+            }
+            100% {
+                top: 100%;
+            }
+        }
+
+        /* Footer Styling */
+        .footer {
+            text-align: center;
+            padding: 2rem 0;
+            background-color: #2d3748; /* Dark footer background */
+            color: #ddd;
+            margin-top: 2rem;
+            border-top: 1px solid #4a5568; /* Light border for footer */
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Animation (Rain Effect) -->
+    <div class="background">
+        <div class="rain"></div>
+        <div class="rain"></div>
+        <div class="rain"></div>
+        <div class="rain"></div>
+        <div class="rain"></div>
+        <div class="rain"></div>
+        <div class="rain"></div>
+        <div class="rain"></div>
+        <div class="rain"></div>
+    </div>
+
+    <!-- Navigation Bar -->
+    <header class="nav-bar">
+        <div class="logo">
+            <img src="{% static 'your-logo.png' %}" alt="E-Hub Logo">
+        </div>
+        <div>
+            <a href="#">Founders</a>
+            <a href="#">Investors</a>
+            <a href="#">Funding Connect</a>
+            <a href="#">Groups</a>
+            <a href="#">StartUp Jobs</a>
+            <a href="#">Knowledge Hub</a>
+            <a href="#">Events</a>
+        </div>
+        <a href="#" class="login">Login →</a>
+    </header>
+
+    <!-- Hero Section -->
+    <main class="hero-section">
+        <h1>Welcome to the E-Hub</h1>
+        <p>An online network for founders and investors to connect, make introductions, seek funding, and share advice.</p>
+        <div>
+            <a href="#" class="btn btn-primary btn-lg me-3">Join us</a>
+            <a href="#" class="btn btn-outline-dark btn-lg">Login</a>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2024 E-Hub. All rights reserved.</p>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
