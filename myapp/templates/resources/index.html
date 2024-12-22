@@ -1,0 +1,206 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Founder Resources - E-Hub</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* General Styling */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f8fa; /* Soft light gray background */
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            padding-top: 80px; /* Offset for fixed navbar */
+        }
+
+        h1 {
+            color: #2d3748; /* Dark text color */
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        h2 {
+            color: #4a5568; /* Slightly lighter gray for headings */
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+
+        p {
+            color: #636e72; /* Medium gray for paragraph text */
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Navbar Styling */
+        .nav-bar {
+            background-color: #2d3748; /* Dark gray background */
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 10;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Soft shadow under navbar */
+        }
+
+        .nav-bar a {
+            color: #f5f5f5;
+            margin: 0 1rem;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-bar a:hover {
+            color: #63b3ed; /* Light blue on hover */
+        }
+
+        .logo img {
+            height: 50px;
+        }
+
+        .login {
+            border: 1px solid #63b3ed;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 14px;
+            color: #63b3ed;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .login:hover {
+            background-color: #63b3ed;
+            color: white;
+        }
+
+        /* Resource Categories Section */
+        .resource-categories {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin: 2rem 1rem;
+            gap: 2rem;
+        }
+
+        .category-card {
+            width: 30%;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .category-card img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 15px;
+            border-radius: 5px;
+        }
+
+        /* Search Bar Styling */
+        .search-bar {
+            margin: 30px auto;
+            display: flex;
+            justify-content: center;
+        }
+
+        .search-bar input[type="text"] {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            width: 300px;
+        }
+
+        .search-bar button {
+            padding: 10px 15px;
+            background-color: #4CAF50; /* Green button */
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            margin-left: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        .search-bar button:hover {
+            background-color: #45a049; /* Darker green on hover */
+        }
+
+        /* Footer Styling */
+        .footer {
+            text-align: center;
+            padding: 2rem 0;
+            background-color: #2d3748;
+            color: #ddd;
+            margin-top: auto; /* Ensures footer stays at the bottom */
+            border-top: 1px solid #4a5568;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <header class="nav-bar">
+        <div class="logo">
+            <a href="{% url 'myapp:home' %}">
+                <img src="{% static 'your-logo.png' %}" alt="E-Hub Logo">
+            </a> 
+        </div>
+        <div>
+            <a href="{% url 'myapp:founders_page' %}">Founders</a>
+            <a href="{% url 'myapp:investor_page' %}">Investors</a>
+            <a href="{% url 'myapp:index' %}">Funding Connect</a>
+            <a href="{% url 'myapp:home_screen' %}">Groups</a>
+            <a href="#">StartUp Jobs</a>
+            <a href="{% url 'myapp:index_resources' %}">Knowledge Hub</a>
+            <a href="#">Events</a>
+        </div>
+        <a href="#" class="login">Login →</a>
+    </header>
+
+    <!-- Page Content -->
+    <main style="flex-grow: 1; padding-bottom: 2rem;">
+        <h1>Welcome to the E-Hub Founder Resources Page</h1>
+
+        <div class="resource-categories">
+            {% for category in resource_categories %}
+                <div class="category-card">
+                    {% if category.image %}
+                        <img src="{{ category.image.url }}" alt="{{ category.name }}">
+                    {% endif %}
+                    <h2>{{ category.name }}</h2>
+                    <p>{{ category.description }}</p>
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="search-bar">
+            <input type="text" placeholder="Search resources">
+            <button>Search</button>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2024 E-Hub. All rights reserved.</p>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

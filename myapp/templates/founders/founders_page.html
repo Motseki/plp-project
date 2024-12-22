@@ -1,0 +1,170 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Hub Founders</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+</head>
+<body>
+    <header class="bg-primary text-white text-center py-4">
+        <h1>Meet E-Hub Founders</h1>
+        <p class="lead">Discover inspiring entrepreneurs and their journeys</p>
+    </header>
+
+    <main class="container mt-5">
+        <h2 class="text-center mb-4">Featured Founders</h2>
+        <div class="row">
+            {% for founder in founders %}
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ founder.first_name }} {{ founder.last_name }}</h5>
+                        <p class="card-text">
+                            <strong>Role:</strong> {{ founder.role }}<br>
+                            <strong>Company:</strong> {{ founder.company }}<br>
+                            <strong>Biography:</strong> {{ founder.biography|truncatechars:100 }}
+                        </p>
+                        <p class="text-muted"><em>Joined on: {{ founder.date_joined|date:"F d, Y" }}</em></p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="text-center mt-5">
+            <h3>Join Our Network</h3>
+            <a href="#" class="btn btn-primary mt-3">Upload Your Profile</a>
+        </div>
+
+        <div class="search-section mt-5">
+            <h3>Search Founders</h3>
+            <form method="GET" class="d-flex">
+                <input type="text" name="q" class="form-control me-2" placeholder="Search by name or company">
+                <button type="submit" class="btn btn-primary">Search</button>
+            </form>
+        </div>
+    </main>
+
+    <footer class="bg-dark text-white text-center py-3 mt-5">
+        <p>&copy; 2024 E-Hub. All rights reserved.</p>
+    </footer>
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Hub Founders</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    {% load static %}
+    <style>
+        .nav-bar {
+            background-color: #2d3748; /* Dark gray background */
+            border-bottom: 1px solid #4a5568; /* Lighter border */
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 10;
+            position: relative;
+        }
+
+        .nav-bar a {
+            color: #f5f5f5; /* Light color for text */
+            margin: 0 1rem;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .nav-bar a:hover {
+            color: #63b3ed; /* Light blue for hover */
+        }
+
+        .login {
+            border: 1px solid #63b3ed; /* Blue border */
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 14px;
+            color: #63b3ed; /* Blue text */
+            transition: all 0.3s ease;
+        }
+
+        .login:hover {
+            background-color: #63b3ed;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <header class="nav-bar">
+        <div class="logo">
+            <a href="{% url 'myapp:home' %}">
+                <img src="{% static 'your-logo.png' %}" alt="E-Hub Logo" height="50">
+            </a>  
+        </div>
+        <div>
+            <a href="{% url 'myapp:founders_page' %}">Founders</a>
+            <a href="{% url 'myapp:investor_page' %}">Investors</a>
+            <a href="{% url 'myapp:index' %}">Funding Connect</a>
+            <a href="{% url 'myapp:home_screen' %}">Groups</a>
+            <a href="#">StartUp Jobs</a>
+            <a href="{% url 'myapp:index_resources' %}">Knowledge Hub</a>
+            <a href="#">Events</a>
+        </div>
+        <a href="#" class="login">Login →</a>
+    </header>
+
+    <!-- Main Header Section -->
+    <header class="bg-primary text-white text-center py-4">
+        <h1>Meet E-Hub Founders</h1>
+        <p class="lead">Discover inspiring entrepreneurs and their journeys</p>
+    </header>
+
+    <!-- Main Content Section -->
+    <main class="container mt-5">
+        <h2 class="text-center mb-4">Featured Founders</h2>
+        <div class="row">
+            {% for founder in founders %}
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ founder.first_name }} {{ founder.last_name }}</h5>
+                        <p class="card-text">
+                            <strong>Role:</strong> {{ founder.role }}<br>
+                            <strong>Company:</strong> {{ founder.company }}<br>
+                            <strong>Biography:</strong> {{ founder.biography|truncatechars:100 }}
+                        </p>
+                        <p class="text-muted"><em>Joined on: {{ founder.date_joined|date:"F d, Y" }}</em></p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Call to Action for Uploading Profile -->
+        <div class="text-center mt-5">
+            <h3>Join Our Network</h3>
+            <a href="#" class="btn btn-primary mt-3">Upload Your Profile</a>
+        </div>
+
+        <!-- Search Section -->
+        <div class="search-section mt-5">
+            <h3>Search Founders</h3>
+            <form method="GET" class="d-flex">
+                <input type="text" name="q" class="form-control me-2" placeholder="Search by name or company">
+                <button type="submit" class="btn btn-primary">Search</button>
+            </form>
+        </div>
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="bg-dark text-white text-center py-3 mt-5">
+        <p>&copy; 2024 E-Hub. All rights reserved.</p>
+    </footer>
+</body>
+</html>
+

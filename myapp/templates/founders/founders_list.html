@@ -126,13 +126,21 @@
             <img src="#" alt="E-Hub Logo">
         </div>
         <div>
-            <a href="#">Home</a>
+            <!-- <a href="#">Home</a>
             <a href="#">Founders</a>
             <a href="#">Investors</a>
             <a href="#">Funding Connect</a>
             <a href="#">Groups</a>
             <a href="#">StartUp Jobs</a>
             <a href="#">Knowledge Hub</a>
+            <a href="#">Events</a> -->
+
+            <a href="{% url 'myapp:founder_list' %}">Founders</a>
+            <a href="{% url 'myapp:investor_list' %}">Investors</a>
+            <a href="{% url 'myapp:index' %}">Funding Connect</a>
+            <a href="#">Groups</a>
+            <a href="#">StartUp Jobs</a>
+            <a href="{% url 'myapp:index_resources' %}">Knowledge Hub</a>
             <a href="#">Events</a>
         </div>
         <a href="#" class="login">Login →</a>
