@@ -1,8 +1,22 @@
 from django.shortcuts import get_object_or_404, render, redirect
 from rest_framework import viewsets
+from django.contrib.auth.models import User
 
 from .models import Group, Industry, Investor, Founder, FundingRequest, ResourceCategory, Resource, UserProfile
 from  .forms import FounderForm, InvestorForm
+
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm
+from django.contrib.auth.decorators import login_required
+
+# from django.contrib.auth.forms import UserCreationForm
+# from django.contrib.auth.models import User
+
+from django.http import HttpResponse
+from django.contrib.auth import logout
+
+# from django.shortcuts import render, redirect
+# from django.contrib.auth.forms import UserChangeForm
+# from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def home(request):
@@ -94,3 +108,147 @@ def home_screen(request):
         'industries': industries,
     }
     return render(request, 'group/index.html', context)
+
+def register(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('myapp:login')  # Redirect to the login page after successful registration
+    else:
+        form = UserCreationForm()
+
+    return render(request, 'registration/register.html', {'form': form})
+
+
+# Use login_required to ensure only authenticated users can access this view
+@login_required
+def dashboard(request):
+    # Fetch any user-specific data if needed
+    user = request.user  # Get the currently logged-in user
+    context = {
+        'user': user,
+    }
+    return render(request, 'dashboard.html', context)
+
+
+# def profile(request):
+#     return render(request, 'myapp/profile.html')
+
+def profile(request):
+    # Assuming you have a User profile model or additional user info
+    user = request.user
+    return render(request, 'profile/profile.html', {'user': user})
+
+@login_required
+def edit_profile(request):
+    if request.method == 'POST':
+        form = UserChangeForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect('myapp:profile')  # Redirect to the profile page after saving
+    else:
+        form = UserChangeForm(instance=request.user)
+
+    # Add CSS classes to form fields
+    form.fields['first_name'].widget.attrs.update({'class': 'form-control'})
+    form.fields['last_name'].widget.attrs.update({'class': 'form-control'})
+    form.fields['email'].widget.attrs.update({'class': 'form-control'})
+    form.fields['password'].widget.attrs.update({'class': 'form-control'})
+
+    return render(request, 'profile/edit_profile.html', {'form': form})
+
+def logout_view(request):
+    print("Logging out...")
+    logout(request)
+    return redirect('myapp:home')  # or wherever you'd like to redirect after logout
+
+def custom_logout(request):
+    logout(request)
+    return redirect('myapp:home')  # Redirect to the home page after logout
+
+# @login_required
+# def user_management(request):
+#     if not request.user.is_staff:
+#         return redirect('dashboard')  # Redirect non-admin users to the dashboard
+    
+#     users = User.objects.all()
+#     return render(request, 'profile/user_management.html', {'users': users})
+
+# @login_required
+# def delete_user(request, user_id):
+#     if not request.user.is_staff:
+#         return redirect('dashboard')  # Restrict deletion to admin users
+    
+#     user = get_object_or_404(User, id=user_id)
+#     user.delete()
+#     return redirect('myapp:user_management')
+
+@login_required
+def user_management(request):
+    if not request.user.is_staff:
+        return redirect('myapp:dashboard')  # Restrict to admins
+
+    users = User.objects.all()
+    return render(request, 'profile/user_management.html', {'users': users})
+
+@login_required
+def add_user(request):
+    if not request.user.is_staff:
+        return redirect('myapp:dashboard')
+
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('myapp:user_management')
+    else:
+        form = UserCreationForm()
+    return render(request, 'profile/add_user.html', {'form': form})
+
+@login_required
+def edit_user(request, user_id):
+    if not request.user.is_staff:
+        return redirect('myapp:dashboard')
+
+    user = get_object_or_404(User, id=user_id)
+
+    if request.method == 'POST':
+        user.username = request.POST['username']
+        user.email = request.POST['email']
+        user.is_staff = 'is_staff' in request.POST
+        user.save()
+        return redirect('myapp:user_management')
+    return render(request, 'profile/edit_user.html', {'user': user})
+
+@login_required
+def delete_user(request, user_id):
+    if not request.user.is_staff:
+        return redirect('myapp:dashboard')
+
+    user = get_object_or_404(User, id=user_id)
+    user.delete()
+    return redirect('myapp:user_management')
+
+@login_required
+def disable_user(request, user_id):
+    if not request.user.is_staff:
+        return redirect('dashboard')
+
+    user = get_object_or_404(User, id=user_id)
+    user.is_active = False
+    user.save()
+    return redirect('myapp:user_management')
+
+
+@login_required
+def suspend_user(request, user_id):
+    if not request.user.is_staff:
+        return redirect('myapp:dashboard')
+
+    # Example implementation: Suspend by setting a custom field or flag
+    user = get_object_or_404(User, id=user_id)
+    user.is_active = False
+    user.save()
+    return redirect('myapp:user_management')
+

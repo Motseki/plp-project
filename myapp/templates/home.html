@@ -226,7 +226,7 @@
             <a href="{% url 'myapp:index_resources' %}">Knowledge Hub</a>
             <a href="#">Events</a>
         </div>
-        <a href="#" class="login">Login →</a>
+        <a href="{% url 'myapp:login' %}" class="login">Login →</a>
     </header>
 
     <!-- Hero Section -->
@@ -235,7 +235,7 @@
         <p>An online network for founders and investors to connect, make introductions, seek funding, and share advice.</p>
         <div>
             <a href="#" class="btn btn-primary btn-lg me-3">Join us</a>
-            <a href="#" class="btn btn-outline-dark btn-lg">Login</a>
+            <a href="{% url 'myapp:login' %}" class="btn btn-outline-dark btn-lg">Login</a>
         </div>
     </main>
 

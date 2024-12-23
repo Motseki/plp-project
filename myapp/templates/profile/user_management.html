@@ -1,0 +1,36 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1>User Management</h1>
+    <a href="{% url 'myapp:add_user' %}" class="btn btn-success mb-3">Add User</a>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Staff</th>
+                <th>Active</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+            <tr>
+                <td>{{ user.id }}</td>
+                <td>{{ user.username }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.is_staff }}</td>
+                <td>{{ user.is_active }}</td>
+                <td>
+                    <a href="{% url 'myapp:edit_user' user.id %}" class="btn btn-primary btn-sm">Edit</a>
+                    <a href="{% url 'myapp:disable_user' user.id %}" class="btn btn-warning btn-sm">Disable</a>
+                    <a href="{% url 'myapp:delete_user' user.id %}" class="btn btn-danger btn-sm">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
