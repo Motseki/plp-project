@@ -1,0 +1,18 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1>Available Funding Applications</h1>
+    <div class="list-group">
+        {% for application in applications %}
+        <div class="list-group-item">
+            <h4>{{ application.project_name }}</h4>
+            <p>{{ application.description }}</p>
+            <p><strong>Funding Amount:</strong> ${{ application.funding_amount }}</p>
+            <p><strong>Status:</strong> {{ application.status }}</p>
+            <a href="{% url 'investors:apply_for_funding' application.id %}" class="btn btn-primary">Apply for Funding</a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

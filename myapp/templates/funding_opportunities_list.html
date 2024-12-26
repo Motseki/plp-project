@@ -10,7 +10,7 @@
         </div>
         <ul class="nav flex-column">
             <li class="nav-item">
-                <a href="#dashboard-overview" class="nav-link text-white active">
+                <a href="{% url 'myapp:dashboard' %}" class="nav-link text-white active">
                     <i class="fas fa-tachometer-alt me-2"></i> Dashboard Overview
                 </a>
             </li>
@@ -41,61 +41,27 @@
 
     <!-- Main Content -->
     <div class="content-wrapper flex-grow-1">
-        <!-- Welcome Section -->
-        <div class="container my-5" id="dashboard-overview">
+        <!-- Funding Opportunities Section -->
+        <div class="container my-5">
             <div class="text-center mb-4">
-                <h1 class="fw-bold">Welcome Back, {{ user.username }}!</h1>
-                <p class="text-muted">Here's an overview of your platform's activity.</p>
+                <h1 class="fw-bold">Funding Opportunities</h1>
+                <p class="text-muted">Browse available funding opportunities here.</p>
             </div>
 
-            <!-- Dashboard Overview Cards -->
-            <div class="row g-4">
-                <div class="col-md-6">
-                    <div class="card shadow-sm">
-                        <div class="card-header bg-dark text-white">
-                            <h5 class="card-title mb-0">Investors</h5>
-                        </div>
-                        <div class="card-body">
-                            <a href="#" class="btn btn-outline-dark btn-view-investors">View Investors</a>
-                            <a href="{% url 'myapp:add_investor' %}" class="btn btn-success mt-2">Add Investor</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-6">
-                    <div class="card shadow-sm">
-                        <div class="card-header bg-dark text-white">
-                            <h5 class="card-title mb-0">Founders</h5>
-                        </div>
-                        <div class="card-body">
-                            <a href="#" class="btn btn-outline-dark btn-view-founders">View Founders</a>
-                            <a href="{% url 'myapp:apply_for_funding' %}" class="btn btn-success mt-2">Apply for Funding</a>
-                            <a href="{% url 'myapp:add_founder' %}" class="btn btn-success mt-2">Add Founder</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Dynamically Loaded Content -->
-            <div id="investor-details" class="mt-5"></div>
-            <div id="founder-details" class="mt-5"></div>
-
-
-            <!-- Applications Section -->
-            <h2>Funding Applications</h2>
-           
-            <nav>
-                <ul>
-                    <a href="{% url 'myapp:list_funding_opportunities' %}">Funding Opportunities</a>
-                    <!-- Add other links as necessary -->
-                </ul>
-                <ul>
-                    <a href="{% url 'myapp:add_funding_request' %}" class="btn btn-success">Add Funding Request</a>
-                </ul>
-            </nav>
-
-            
-            
+            <ul>
+                {% for opportunity in opportunities %}
+                    <li>
+                        <strong>{{ opportunity.title }}</strong>: {{ opportunity.description }}
+                        <a href="{% url 'myapp:toggle_funding_interest' opportunity.id %}">
+                            {% if opportunity in user.investor.funding_opportunities.all %}
+                                Remove from Interests
+                            {% else %}
+                                Add to Interests
+                            {% endif %}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
         </div>
     </div>
 </div>
@@ -186,4 +152,5 @@
         }
     }
 </style>
+
 {% endblock %}

@@ -1,0 +1,23 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+<div class="d-flex">
+    <!-- Vertical Navbar -->
+	{% include "dashboard/vertical_navbar.html" %}
+
+    <!-- Main Content -->
+    <div class="content-wrapper flex-grow-1">
+        <!-- Content Section -->
+        <div class="container my-5">
+            <h2>Add a Funding Request</h2>
+
+            <form method="POST">
+                {% csrf_token %}
+                {{ form.as_p }}  <!-- Render the form fields -->
+                <button type="submit">Submit Funding Request</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

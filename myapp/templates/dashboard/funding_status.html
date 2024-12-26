@@ -1,0 +1,41 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<div class="d-flex">
+    <!-- Vertical Navbar -->
+    {% include "dashboard/vertical_navbar.html" %}
+
+    <!-- Main Content -->
+    <div class="content-wrapper flex-grow-1">
+        <div class="container mt-5">
+            <h1>Funding Applications</h1>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Project Name</th>
+                        <th>Funding Amount</th>
+                        <th>Description</th>
+                        <th>Status</th>
+                        <th>Submitted At</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for application in applications %}
+                    <tr>
+                        <td>{{ application.project_name }}</td>
+                        <td>{{ application.funding_amount }}</td>
+                        <td>{{ application.description }}</td>
+                        <td>{{ application.status }}</td>
+                        <td>{{ application.submitted_at }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="5" class="text-center">No applications found.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

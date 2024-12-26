@@ -1,0 +1,14 @@
+<h4>Investor List</h4>
+<ul class="list-group">
+    {% for investor in investors %}
+        <li class="list-group-item">
+            <strong>{{ investor.first_name }} {{ investor.last_name }}</strong><br>
+            Email: {{ investor.email }}<br>
+            Phone: {{ investor.phone_number }}<br>
+            Startup: {{ investor.startup_name }}<br>
+            Investment Goal: ${{ investor.investment_goal|floatformat:2 }}
+        </li>
+    {% empty %}
+        <li>No investors found.</li>
+    {% endfor %}
+</ul>

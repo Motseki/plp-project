@@ -42,11 +42,11 @@
     <!-- Main Content -->
     <div class="content-wrapper flex-grow-1">
         <div class="container mt-5">
-            <h1>Add User</h1>
-            <form method="POST">
+            <h1>Add Investor</h1>
+            <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 {{ form.as_p }}
-                <button type="submit" class="btn btn-primary">Add User</button>
+                <button type="submit" class="btn btn-primary">Add Investor</button>
             </form>
         </div>
     </div>

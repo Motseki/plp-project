@@ -1,0 +1,40 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<div class="d-flex">
+    <!-- Vertical Navbar -->
+    {% include "dashboard/vertical_navbar.html" %}
+
+    <!-- Main Content -->
+    <div class="content-wrapper flex-grow-1">
+        <div class="container mt-5">
+            <h1>Application Details</h1>
+            <dl class="row">
+                <dt class="col-sm-3">Application ID:</dt>
+                <dd class="col-sm-9">{{ application.id }}</dd>
+                
+                <dt class="col-sm-3">Founder:</dt>
+                <dd class="col-sm-9">{{ application.founder.username }}</dd> <!-- Corrected to display username -->
+                
+                <dt class="col-sm-3">Funding Amount:</dt>
+                <dd class="col-sm-9">${{ application.funding_amount }}</dd>
+                
+                <dt class="col-sm-3">Status:</dt>
+                <dd class="col-sm-9">{{ application.status }}</dd>
+                
+                <dt class="col-sm-3">Submitted At:</dt>
+                <dd class="col-sm-9">{{ application.submitted_at }}</dd>
+            </dl>
+            <a href="{% url 'myapp:dashboard' %}" class="btn btn-secondary">Back to Dashboard</a>
+        </div>
+    </div>
+</div>
+
+<style>
+    .content-wrapper {
+        margin-left: 240px;
+        padding: 20px;
+    }
+</style>
+{% endblock %}
+

@@ -1,0 +1,29 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<h2>Funding Opportunities</h2>
+
+<ul>
+  {% for opportunity in opportunities %}
+    <li>
+      <h3>{{ opportunity.title }}</h3>
+      <p>{{ opportunity.description }}</p>
+      <p>Amount Requested: {{ opportunity.amount_requested }}</p>
+
+      <!-- Toggle Sponsorship Button -->
+      {% if opportunity in request.user.investor.sponsored_projects.all %}
+        <form method="post" action="{% url 'myapp:toggle_funding_interest' opportunity.id %}">
+          {% csrf_token %}
+          <button type="submit">Unsubscribe from this project</button>
+        </form>
+      {% else %}
+        <form method="post" action="{% url 'myapp:toggle_funding_interest' opportunity.id %}">
+          {% csrf_token %}
+          <button type="submit">Sponsor this project</button>
+        </form>
+      {% endif %}
+    </li>
+  {% endfor %}
+</ul>
+
+{% endblock %}

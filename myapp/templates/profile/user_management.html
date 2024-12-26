@@ -1,36 +1,115 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-<div class="container mt-5">
-    <h1>User Management</h1>
-    <a href="{% url 'myapp:add_user' %}" class="btn btn-success mb-3">Add User</a>
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Username</th>
-                <th>Email</th>
-                <th>Staff</th>
-                <th>Active</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for user in users %}
-            <tr>
-                <td>{{ user.id }}</td>
-                <td>{{ user.username }}</td>
-                <td>{{ user.email }}</td>
-                <td>{{ user.is_staff }}</td>
-                <td>{{ user.is_active }}</td>
-                <td>
-                    <a href="{% url 'myapp:edit_user' user.id %}" class="btn btn-primary btn-sm">Edit</a>
-                    <a href="{% url 'myapp:disable_user' user.id %}" class="btn btn-warning btn-sm">Disable</a>
-                    <a href="{% url 'myapp:delete_user' user.id %}" class="btn btn-danger btn-sm">Delete</a>
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+<div class="d-flex">
+    <!-- Vertical Navbar -->
+    <nav class="vertical-nav bg-dark text-white" id="sidebar">
+        <div class="py-4 px-3 mb-4 text-center">
+            <h4 class="text-white">E-Hub Dashboard</h4>
+            <small class="text-muted">Welcome, {{ user.username }}</small>
+        </div>
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a href="{% url 'myapp:dashboard' %}" class="nav-link text-white">
+                    <i class="fas fa-tachometer-alt me-2"></i> Dashboard Overview
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link text-white btn-view-investors">
+                    <i class="fas fa-users me-2"></i> Investors
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link text-white btn-view-founders">
+                    <i class="fas fa-rocket me-2"></i> Founders
+                </a>
+            </li>
+            {% if user.is_staff %}
+            <li class="nav-item">
+                <a href="{% url 'myapp:user_management' %}" class="nav-link text-white active">
+                    <i class="fas fa-user-cog me-2"></i> User Management
+                </a>
+            </li>
+            {% endif %}
+            <li class="nav-item">
+                <a href="{% url 'myapp:logout' %}" class="nav-link text-white">
+                    <i class="fas fa-sign-out-alt me-2"></i> Logout
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="content-wrapper flex-grow-1">
+        <div class="container mt-5">
+            <h1>User Management</h1>
+            <a href="{% url 'myapp:add_user' %}" class="btn btn-success mb-3">Add User</a>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Staff</th>
+                        <th>Active</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in users %}
+                    <tr>
+                        <td>{{ user.id }}</td>
+                        <td>{{ user.username }}</td>
+                        <td>{{ user.email }}</td>
+                        <td>{{ user.is_staff }}</td>
+                        <td>{{ user.is_active }}</td>
+                        <td>
+                            <a href="{% url 'myapp:edit_user' user.id %}" class="btn btn-primary btn-sm">Edit</a>
+                            <a href="{% url 'myapp:disable_user' user.id %}" class="btn btn-warning btn-sm">Disable</a>
+                            <a href="{% url 'myapp:delete_user' user.id %}" class="btn btn-danger btn-sm">Delete</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
+
+<style>
+    .vertical-nav {
+        width: 240px;
+        height: 100vh;
+        position: fixed;
+        top: 0;
+        left: 0;
+        overflow-y: auto;
+        z-index: 1030;
+    }
+
+    .content-wrapper {
+        margin-left: 240px;
+        padding: 20px;
+    }
+
+    .nav-link {
+        padding: 10px 20px;
+        transition: background 0.2s;
+    }
+
+    .nav-link:hover {
+        background: rgba(255, 255, 255, 0.1);
+    }
+
+    @media (max-width: 768px) {
+        .vertical-nav {
+            width: 100%;
+            position: static;
+        }
+
+        .content-wrapper {
+            margin-left: 0;
+        }
+    }
+</style>
 {% endblock %}

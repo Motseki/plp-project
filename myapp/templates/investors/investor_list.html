@@ -1,27 +1,34 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-<div class="container mt-5">
-    <h1>Investors</h1>
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Investment Type</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for investor in investors %}
-            <tr>
-                <td>{{ investor.id }}</td>
-                <td>{{ investor.name }}</td>
-                <td>{{ investor.email }}</td>
-                <td>{{ investor.investment_type }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-</div>
+<h2>Investors</h2>
+<a href="{% url 'investor_create' %}" class="btn btn-success">Add Investor</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Startup</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for investor in investors %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ investor.first_name }} {{ investor.last_name }}</td>
+            <td>{{ investor.email }}</td>
+            <td>{{ investor.startup_name }}</td>
+            <td>
+                <a href="{% url 'investor_edit' investor.id %}" class="btn btn-warning btn-sm">Edit</a>
+                <form method="post" action="{% url 'investor_delete' investor.id %}" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
 {% endblock %}

@@ -1,0 +1,24 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<div class="container">
+    <h1 class="my-4">Founders</h1>
+    
+    <div class="list-group">
+        {% for founder in founders %}
+            <div class="list-group-item">
+                <div>
+                    <h5>{{ founder.first_name }} {{ founder.last_name }}</h5>
+                    <p>Email: {{ founder.email }}</p>
+                    <p>Phone: {{ founder.phone_number }}</p>
+                    <p>Role: {{ founder.role }}</p>
+                    <p>Company: {{ founder.company }}</p>
+                    <p>Biography: {{ founder.biography }}</p>
+                </div>
+            </div>
+        {% empty %}
+            <p>No founders found.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

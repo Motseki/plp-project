@@ -1,0 +1,15 @@
+<h4>Founder List</h4>
+<ul class="list-group">
+    {% for founder in founders %}
+        <li class="list-group-item">
+            <strong>{{ founder.first_name }} {{ founder.last_name }}</strong><br>
+            Email: {{ founder.email }}<br>
+            Phone: {{ founder.phone_number }}<br>
+            Role: {{ founder.role }}<br>
+            Company: {{ founder.company }}<br>
+            Biography: {{ founder.biography }}
+        </li>
+    {% empty %}
+        <li>No founders found.</li>
+    {% endfor %}
+</ul>

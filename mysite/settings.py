@@ -26,6 +26,8 @@ LOGIN_REDIRECT_URL = 'myapp:dashboard'
 #LOGIN_REDIRECT_URL = '/dashboard/'  # Redirect after successful login
 LOGOUT_REDIRECT_URL = 'myapp:/'          # Redirect after logout
 
+AUTH_USER_MODEL = 'myapp.CustomUser'
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
